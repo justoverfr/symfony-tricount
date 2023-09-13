@@ -19,6 +19,12 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
+# IDEs
 .idea
 .vscode
+
+# MacOS
 .DS_Store
+
+# environment
+.env
