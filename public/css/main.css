@@ -35,16 +35,6 @@ nav ul li a {
      font-size: 18px;
 }
 
-.auth-links {
-     float: right;
-}
-
-.auth-links a {
-     text-decoration: none;
-     color: #007bff;
-     margin-left: 500px;
-}
-
 
 
 .example-wrapper {
@@ -60,3 +50,8 @@ h1 {
      margin-bottom: 20px;
 }
 
+.button{
+     display: inline-block;
+     padding: 10px 20px;
+     background-color: #0;
+}
