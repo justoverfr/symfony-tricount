@@ -1,7 +1,6 @@
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
     color: #fff;
     text-decoration: none;
     border: none;
@@ -15,7 +14,7 @@
 }
 
 .signup-button {
-    background-color: #28a745;
+    background-color: #B0413E;
 }
 
 .signup-button:hover {
@@ -23,7 +22,7 @@
 }
 
 .login-button {
-    background-color: #a78bfa;
+    background-color: #1e9037;
 }
 
 .login-button:hover {
@@ -36,4 +35,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.button {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button:hover {
+    background-color: #a78bfa;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+.button:active {
+    transform: scale(0.95);
 }

@@ -1,26 +1,31 @@
-
-body, h1, ul, li, a {
-     margin: 0;
-     padding: 0;
-}
-
-
 body {
      font-family: Arial, sans-serif;
-     background-color: #f0f0f0;
      color: #333;
      line-height: 1.6;
+     margin: 0;
+     padding: 0;
+     background-color: #732cc9;
+     background-size: cover;
+     background-position: center center;
+     background-attachment: fixed;
 }
 
+
 header {
-     background-color: #007bff;
+     background-color: rgba(36, 100, 29, 0.33);
      color: #fff;
      padding: 20px 0;
 }
 
+
 nav ul {
      list-style: none;
      text-align: center;
+     position: absolute;
+     top: 2rem;
+     right: 0;
+     color: rgba(123, 105, 147, 0.96);
+
 }
 
 nav ul li {
@@ -36,7 +41,6 @@ nav ul li a {
 }
 
 
-
 .example-wrapper {
      background-color: #fff;
      padding: 20px;
@@ -45,8 +49,12 @@ nav ul li a {
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+
 h1 {
      font-size: 24px;
      margin-bottom: 20px;
 }
 
+.logo {
+     background-image: url('../image/logooo-removebg-preview.png');
+}
