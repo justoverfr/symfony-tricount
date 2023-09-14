@@ -3,6 +3,8 @@
 {% block title %}Hello DefaultController!{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/button.css') }}">
+
 {% endblock %}
 
 {% block body %}
@@ -17,8 +19,9 @@
             </ul>
         </nav>
     </header>
-<div class="centered-bouton">
-    <buton>Inscription</buton>
-    <buton>Connexion</buton>
-</div>
+    <div class="centered-button">
+        <button class="button signup-button">Inscription</button>
+        <button class="button login-button">Connexion</button>
+    </div>
+
 {% endblock %}
