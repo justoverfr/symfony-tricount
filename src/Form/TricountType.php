@@ -6,6 +6,7 @@ use App\Entity\Tricount;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +16,10 @@ class TricountType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('users', EntityType::class, [
-                'class' => User::class, // Entité des utilisateurs
-                'choice_label' => 'username', // Le champ de l'entité User à afficher
-                'multiple' => true, // Permet la sélection multiple
-                'expanded' => true, // Affiche les cases à cocher au lieu d'une liste déroulante
-            ]);
+            ->add('userInput', TextType::class, [
+                'mapped' => false, // important car ce n'est pas un champ de l'entité
+                'label' => 'Pseudo',
+            ])
         ;
     }
 
