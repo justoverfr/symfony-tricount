@@ -14,6 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tricount')]
 class TricountController extends AbstractController
 {
+    /**
+     * Liste des tricounts
+     *
+     * @param TricountRepository $tricountRepository Utilitaire de gestion des tricounts
+     * @return Response page de la liste des tricounts
+     */
     #[Route('/', name: 'app_tricount_index', methods: ['GET'])]
     public function index(TricountRepository $tricountRepository): Response
     {
@@ -22,6 +28,13 @@ class TricountController extends AbstractController
         ]);
     }
 
+    /**
+     * Page de création d'un tricount
+     *
+     * @param Request $request Informations de la requête
+     * @param EntityManagerInterface $entityManager Utilitaire de gestion des entités
+     * @return Response page de création d'un tricount
+     */
     #[Route('/new', name: 'app_tricount_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +55,12 @@ class TricountController extends AbstractController
         ]);
     }
 
+    /**
+     * Page d'affichage d'un tricount en fonction de son id
+     *
+     * @param Tricount $tricount Tricount à afficher
+     * @return Response page d'affichage d'un tricount
+     */
     #[Route('/{id}', name: 'app_tricount_show', methods: ['GET'])]
     public function show(Tricount $tricount): Response
     {
