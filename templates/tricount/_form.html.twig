@@ -1,0 +1,50 @@
+{{ form_start(form) }}
+    {{ form_widget(form._token) }}
+
+    {{ form_row(form.title) }}
+
+    <div class="error-message" style="color: red;"></div>
+    {{ form_row(form.addUserInput) }}
+    {{ form_row(form.addUserButton) }}
+
+    <div class="added-user"></div>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.add-user-btn').on('click', function(event) {
+            event.preventDefault(); // Empêche la soumission du formulaire
+
+            let container = $('.added-user');
+            let userInput = $('#tricount_addUserInput').val(); // Récupère la valeur de l'input
+            let errorMessageElement = $('.error-message');
+
+            // Vider le message d'erreur précédent
+            errorMessageElement.text('');
+
+            // Vérifie si l'input n'est pas vide
+            if (!userInput.trim()) {
+                errorMessageElement.text("Please enter a username.");
+                return;
+            }
+
+            // Vérifier si l'utilisateur existe
+            $.get('/tricount/add-user/' + userInput, function(response) {
+                if (response.status === 'success') {
+                    // Si la liste n'existe pas, la créer
+                    if (!container.find('ul').length) {
+                        container.append('<ul></ul>');
+                    }
+
+                    // Ajouter le texte en tant qu'élément de la liste
+                    container.find('ul').append('<li>' + userInput + '</li>');
+                } else {
+                    errorMessageElement.text(response.message);
+                }
+            });
+        });
+    });
+</script>

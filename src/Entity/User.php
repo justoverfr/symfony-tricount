@@ -47,10 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $lastname = null;
 
+    #[ORM\OneToMany(mappedBy: 'admin', targetEntity: Tricount::class)]
+    private Collection $createdTricounts;
+
     public function __construct()
     {
         $this->tricounts = new ArrayCollection();
         $this->expenses = new ArrayCollection();
+        $this->createdTricounts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,6 +216,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tricount>
+     */
+    public function getCreatedTricounts(): Collection
+    {
+        return $this->createdTricounts;
+    }
+
+    public function addCreatedTricount(Tricount $createdTricount): static
+    {
+        if (!$this->createdTricounts->contains($createdTricount)) {
+            $this->createdTricounts->add($createdTricount);
+            $createdTricount->setAdmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedTricount(Tricount $createdTricount): static
+    {
+        if ($this->createdTricounts->removeElement($createdTricount)) {
+            // set the owning side to null (unless already changed)
+            if ($createdTricount->getAdmin() === $this) {
+                $createdTricount->setAdmin(null);
+            }
+        }
 
         return $this;
     }

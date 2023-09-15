@@ -27,6 +27,10 @@ class Tricount
     #[ORM\OneToMany(mappedBy: 'tricount', targetEntity: Expense::class)]
     private Collection $expenses;
 
+    #[ORM\ManyToOne(inversedBy: 'createdTricounts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $admin = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -112,6 +116,18 @@ class Tricount
                 $expense->setTricount(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAdmin(): ?User
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(?User $admin): static
+    {
+        $this->admin = $admin;
 
         return $this;
     }
