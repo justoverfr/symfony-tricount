@@ -11,6 +11,7 @@ header {
 header img {
     width: 250px;
     height: auto;
+    margin-bottom: 50px;
 }
 
 .totalcount-menu {
