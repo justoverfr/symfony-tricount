@@ -10,7 +10,6 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Total</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,7 +18,6 @@
             <tr>
                 <td>{{ tricount.id }}</td>
                 <td>{{ tricount.title }}</td>
-                <td>{{ tricount.total }}</td>
                 <td>
                     <a href="{{ path('app_tricount_show', {'id': tricount.id}) }}">show</a>
                     <a href="{{ path('app_tricount_edit', {'id': tricount.id}) }}">edit</a>

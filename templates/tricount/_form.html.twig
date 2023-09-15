@@ -3,48 +3,89 @@
 
     {{ form_row(form.title) }}
 
-    <div class="error-message" style="color: red;"></div>
+{#    <div class="error-message" style="color: red;"></div>#}
+
     {{ form_row(form.addUserInput) }}
     {{ form_row(form.addUserButton) }}
 
-    <div class="added-user"></div>
+<ul id="users-list">
+    {# Les utilisateurs ajoutés apparaîtront ici #}
+</ul>
 
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
+    // $(document).ready(function() {
+    //     $('.add-user-btn').on('click', function(event) {
+    //         event.preventDefault(); // Empêche la soumission du formulaire
+    //
+    //         let container = $('.added-user');
+    //         let userInput = $('#tricount_addUserInput').val(); // Récupère la valeur de l'input
+    //         let errorMessageElement = $('.error-message');
+    //
+    //         // Vider le message d'erreur précédent
+    //         errorMessageElement.text('');
+    //
+    //         // Vérifie si l'input n'est pas vide
+    //         if (!userInput.trim()) {
+    //             errorMessageElement.text("Please enter a username.");
+    //             return;
+    //         }
+    //
+    //         // Vérifier si l'utilisateur existe
+    //         $.get('/tricount/add-user/' + userInput, function(response) {
+    //             if (response.status === 'success') {
+    //                 // Si la liste n'existe pas, la créer
+    //                 if (!container.find('ul').length) {
+    //                     container.append('<ul></ul>');
+    //                 }
+    //
+    //                 // Ajouter le texte en tant qu'élément de la liste
+    //                 container.find('ul').append('<li>' + userInput + '</li>');
+    //             } else {
+    //                 errorMessageElement.text(response.message);
+    //             }
+    //         });
+    //     });
+    // });
+
     $(document).ready(function() {
+        var addedUsers = [];
+
         $('.add-user-btn').on('click', function(event) {
-            event.preventDefault(); // Empêche la soumission du formulaire
+            event.preventDefault();
 
-            let container = $('.added-user');
-            let userInput = $('#tricount_addUserInput').val(); // Récupère la valeur de l'input
-            let errorMessageElement = $('.error-message');
+            let userInput = $('#tricount_addUserInput').val().trim();
 
-            // Vider le message d'erreur précédent
-            errorMessageElement.text('');
-
-            // Vérifie si l'input n'est pas vide
-            if (!userInput.trim()) {
-                errorMessageElement.text("Please enter a username.");
-                return;
+            if (userInput && !addedUsers.includes(userInput)) {
+                addedUsers.push(userInput);
+                refreshUserList();
             }
+        });
 
-            // Vérifier si l'utilisateur existe
-            $.get('/tricount/add-user/' + userInput, function(response) {
-                if (response.status === 'success') {
-                    // Si la liste n'existe pas, la créer
-                    if (!container.find('ul').length) {
-                        container.append('<ul></ul>');
-                    }
+        function refreshUserList() {
+            $('#users-list').empty();
 
-                    // Ajouter le texte en tant qu'élément de la liste
-                    container.find('ul').append('<li>' + userInput + '</li>');
-                } else {
-                    errorMessageElement.text(response.message);
-                }
+            addedUsers.forEach(function(user) {
+                $('#users-list').append('<li>' + user + ' <button class="remove-user" data-username="' + user + '">X</button></li>');
             });
+
+            // Mettre à jour le champ caché avec la liste actuelle des utilisateurs ajoutés
+            $('#tricount_addedUsers').val(JSON.stringify(addedUsers));
+        }
+
+        $('#users-list').on('click', '.remove-user', function() {
+            var userToRemove = $(this).data('username');
+
+            addedUsers = addedUsers.filter(function(user) {
+                return user !== userToRemove;
+            });
+
+            refreshUserList();
         });
     });
 </script>

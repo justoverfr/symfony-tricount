@@ -48,7 +48,33 @@ class TricountController extends AbstractController
 
         $tricount->setAdmin($user);
 
+        $userEntity = $entityManager->getRepository(User::class)->find($user->getId());
+        $tricount->addUser($userEntity);
+
         if ($form->isSubmitted() && $form->isValid()) {
+//            $usernames = $request->request->get('addedUsers', []);
+//
+//            foreach ($usernames as $username) {
+//                $foundUser = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+//                if ($foundUser) {
+//                    $tricount->addUser($foundUser);
+//                }
+//            }
+            // Récupère le champ caché et le décode en tableau PHP
+            $addedUsersJSON = $form->get('addedUsers')->getData();
+            $addedUsers = json_decode($addedUsersJSON, true);
+
+            if (is_array($addedUsers)) {
+                foreach ($addedUsers as $username) {
+                    // Récupère l'utilisateur à partir de son username
+                    $userEntity = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+                    // L'ajoute au tricount
+                    if ($userEntity) {
+                        $tricount->addUser($userEntity);
+                    }
+                }
+            }
+
             $entityManager->persist($tricount);
             $entityManager->flush();
 
@@ -71,6 +97,10 @@ class TricountController extends AbstractController
         if ($user) {
             return new JsonResponse(['status' => 'success', 'message' => 'User exists']);
         } else {
+
+
+
+
             return new JsonResponse(['status' => 'error', 'message' => 'User does not exist']);
         }
     }

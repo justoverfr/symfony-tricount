@@ -18,9 +18,6 @@ class Tricount
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $total = null;
-
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'tricounts')]
     private Collection $users;
 
@@ -50,18 +47,6 @@ class Tricount
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getTotal(): ?float
-    {
-        return $this->total;
-    }
-
-    public function setTotal(?float $total): static
-    {
-        $this->total = $total;
 
         return $this;
     }
