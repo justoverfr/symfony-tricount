@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tricount{% endblock %}
+
+{% block body %}
+    <h1>Tricount</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tricount.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ tricount.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tricount_index') }}">back to list</a>
+
+    <a href="{{ path('app_tricount_edit', {'id': tricount.id}) }}">edit</a>
+
+    {{ include('tricount/_delete_form.html.twig') }}
+{% endblock %}
