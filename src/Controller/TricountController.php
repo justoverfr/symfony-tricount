@@ -60,11 +60,14 @@ class TricountController extends AbstractController
 //                    $tricount->addUser($foundUser);
 //                }
 //            }
-            // Récupère le champ caché et le décode en tableau PHP
+
+            // Récupère le contenu de la liste d'utilisateurs
             $addedUsersJSON = $form->get('addedUsers')->getData();
+
+            // Transforme le contenu en array PHP
             $addedUsers = json_decode($addedUsersJSON, true);
 
-            if (is_array($addedUsers)) {
+            if (is_array($addedUsers)) { // ça crash si je ne mets pas ça
                 foreach ($addedUsers as $username) {
                     // Récupère l'utilisateur à partir de son username
                     $userEntity = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
