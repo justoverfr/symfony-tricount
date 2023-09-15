@@ -8,6 +8,7 @@ use App\Form\TricountType;
 use App\Repository\TricountRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -46,8 +47,6 @@ class TricountController extends AbstractController
         $form->handleRequest($request);
 
         $tricount->setAdmin($user);
-        $user2 = new User($user);
-        $tricount->addUser($user2);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($tricount);
@@ -62,29 +61,18 @@ class TricountController extends AbstractController
         ]);
     }
 
-    #[Route('/invite', name: 'app_tricount_invite', methods: ['GET', 'POST'])]
-    public function invite(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/add-user/{username}', name: 'app_tricount_invite', methods: ['GET', 'POST'])]
+    public function invite(Request $request, EntityManagerInterface $entityManager, string $username): Response
     {
-        $username = $request->request->get('username');
-        echo $username;
-        /*
-        $tricount = new Tricount();
-        $form = $this->createForm(TricountType::class, $tricount);
-        $form->handleRequest($request);
+        $userRepo = $entityManager->getRepository(User::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($tricount);
-            $entityManager->flush();
+        $user = $userRepo->findOneBy(['username' => $username]);
 
-            return $this->redirectToRoute('app_tricount_index', [], Response::HTTP_SEE_OTHER);
+        if ($user) {
+            return new JsonResponse(['status' => 'success', 'message' => 'User exists']);
+        } else {
+            return new JsonResponse(['status' => 'error', 'message' => 'User does not exist']);
         }
-
-        return $this->render('tricount/new.html.twig', [
-            'tricount' => $tricount,
-            'form' => $form,
-        ]);
-        */
-        return new Response('saumon');
     }
 
     /**

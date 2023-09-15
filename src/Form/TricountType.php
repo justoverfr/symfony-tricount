@@ -3,9 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Tricount;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,9 +15,15 @@ class TricountType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('userInput', TextType::class, [
+            ->add('addUserInput', TextType::class, [
                 'mapped' => false, // Indique que ce n'est pas un attribut de l'entité
-                'label' => 'Add a user',
+                'label' => 'Enter an username',
+            ])
+            ->add('addUserButton', ButtonType::class, [
+                'label' => 'Add user to the tricount',
+                'attr' => [
+                    'class' => 'add-user-btn',
+                ],
             ])
         ;
     }
