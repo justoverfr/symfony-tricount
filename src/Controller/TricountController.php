@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Tricount;
+use App\Entity\User;
 use App\Form\TricountType;
 use App\Repository\TricountRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,6 +26,35 @@ class TricountController extends AbstractController
     #[Route('/new', name: 'app_tricount_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
+        $tricount = new Tricount();
+        $form = $this->createForm(TricountType::class, $tricount);
+        $form->handleRequest($request);
+
+        $tricount->setAdmin($user);
+        $user2 = new User($user);
+        $tricount->addUser($user2);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($tricount);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_tricount_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('tricount/new.html.twig', [
+            'tricount' => $tricount,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/invite', name: 'app_tricount_invite', methods: ['GET', 'POST'])]
+    public function invite(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $username = $request->request->get('username');
+        echo $username;
+        /*
         $tricount = new Tricount();
         $form = $this->createForm(TricountType::class, $tricount);
         $form->handleRequest($request);
@@ -40,6 +70,8 @@ class TricountController extends AbstractController
             'tricount' => $tricount,
             'form' => $form,
         ]);
+        */
+        return new Response('saumon');
     }
 
     #[Route('/{id}', name: 'app_tricount_show', methods: ['GET'])]

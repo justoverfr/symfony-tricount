@@ -1,4 +1,49 @@
+{% set users = [{'username': 'sauce'}, {'username': 'tomato'}] %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_widget(form._token) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.userInput) }}
+    {% if users|length > 0 %}
+        <div id="users-list">
+            <ul>
+                {% for user in users %}
+                    <li>{{ user.username }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+<div id="invite-button-div">
+    <button type="button" class="btn btn-primary" id="invite-button" onclick="inviteUser()">Invite</button>
+</div>
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    function inviteUser() {
+        const userInput = $('#y a').val();
+
+        // Envoyez une requête AJAX pour chercher l'utilisateur par le pseudo ou email
+        $.ajax({
+            url: 'http://localhost:8000/tricount/invite',
+            type: 'POST',
+            data: { 'username': userInput },
+            success: function(response) {
+                console.log(response);
+                $('#users-list ul').append('<li>' + response + '</li>');
+                if(response.success) {
+                    // Ajoutez l'utilisateur à la liste
+
+                    // alert('Youpi');
+                } else {
+                    // alert(response.error);
+                    console.log("sbeg")
+                }
+            },
+            error: function() {
+                alert('Une erreur est survenue');
+            }
+        });
+    }
+</script>

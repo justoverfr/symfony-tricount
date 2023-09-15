@@ -17,8 +17,8 @@ class TricountType extends AbstractType
         $builder
             ->add('title')
             ->add('userInput', TextType::class, [
-                'mapped' => false, // important car ce n'est pas un champ de l'entité
-                'label' => 'Pseudo',
+                'mapped' => false, // Indique que ce n'est pas un attribut de l'entité
+                'label' => 'Add a user',
             ])
         ;
     }
