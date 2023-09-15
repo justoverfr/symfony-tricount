@@ -2,17 +2,17 @@
 
 {% block title %}Register{% endblock %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/register.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/registre.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <form>
+        <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+        {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.firstName) }}
@@ -23,5 +23,6 @@
         {{ form_row(registrationForm.agreeTerms) }}
 
         <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        {{ form_end(registrationForm) }}
+    </form>
 {% endblock %}

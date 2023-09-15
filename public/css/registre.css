@@ -4,11 +4,11 @@ h1 {
 
 form {
     max-width: 400px;
-    margin: 0 auto;
+    margin:  auto;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: rgba(66, 47, 47, 0.22);
+    border-radius: 1rem;
+    background-color: rgb(232, 229, 229);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
     animation: pulse 2s infinite alternate;
@@ -21,7 +21,7 @@ form {
     50% {
         box-shadow: 0 0 15px rgb(238, 209, 2);
     }
-        100% {
+    100% {
         box-shadow: 0 0 15px rgb(255, 0, 0);
     }
 }
@@ -43,7 +43,7 @@ input[type="password"] {
     padding: 0.5REM;
     margin-bottom: 1REM;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 0.6rem;
 }
 
 input[type="checkbox"] {
@@ -57,7 +57,7 @@ input[type="checkbox"] {
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.6rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
