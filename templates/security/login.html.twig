@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200&family=Montserrat:wght@100&family=Roboto+Mono:ital,wght@0,300;0,400;1,300&family=Roboto+Slab:wght@300&family=Titillium+Web:ital@1&display=swap" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
+
+    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -14,9 +22,12 @@
         </div>
     {% endif %}
 
+    <div class="form-container">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <br>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <br>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
@@ -28,4 +39,5 @@
         Sign in
     </button>
 </form>
+</div>
 {% endblock %}
